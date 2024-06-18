@@ -6,13 +6,15 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "oxlint"
   },
   "dependencies": {
     "preact": "^10.19.6"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.8.2",
+    "oxlint": "^0.4.4",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
   }
