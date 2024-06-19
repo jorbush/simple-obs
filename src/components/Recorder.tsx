@@ -1,4 +1,7 @@
 import { useState, useRef } from "preact/hooks";
+import VideoCameraIcon from "../assets/icons/video-camera.svg";
+import StopIcon from "../assets/icons/stop.svg";
+import SaveIcon from "../assets/icons/save.svg";
 
 const Recorder = () => {
   const [recording, setRecording] = useState(false);
@@ -39,27 +42,39 @@ const Recorder = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center">
+    <div className="flex h-screen flex-col items-center justify-center space-y-4">
       {!recording ? (
         <button
           onClick={startRecording}
-          className="rounded bg-green-500 p-4 text-white"
+          className="transform rounded bg-gray-700 p-4 text-white transition-transform hover:scale-105"
         >
-          Record
+          <img
+            src={VideoCameraIcon}
+            alt="Record"
+            className="white h-6 w-6"
+          />
         </button>
       ) : (
-        <div>
+        <div className="flex space-x-4">
           <button
             onClick={stopRecording}
-            className="m-2 rounded bg-red-500 p-4 text-white"
+            className="transform rounded bg-gray-700 p-4 text-white transition-transform hover:scale-105"
           >
-            Stop
+            <img
+              src={StopIcon}
+              alt="Stop"
+              className="h-6 w-6"
+            />
           </button>
           <button
             onClick={saveRecording}
-            className="m-2 rounded bg-blue-500 p-4 text-white"
+            className="transform rounded bg-gray-700 p-4 text-white transition-transform hover:scale-105"
           >
-            Finish
+            <img
+              src={SaveIcon}
+              alt="Save"
+              className="h-6 w-6"
+            />
           </button>
         </div>
       )}
