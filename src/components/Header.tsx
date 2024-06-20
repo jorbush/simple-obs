@@ -1,5 +1,7 @@
 const Header = () => (
-  <header className="pt-20 text-3xl">Simple OBS</header>
+  <header className="absolute top-10 w-full text-center text-3xl">
+    Simple OBS
+  </header>
 );
 
 export default Header;

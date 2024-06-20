@@ -6,7 +6,7 @@ import Header from "./components/Header";
 const App = () => (
   <div className="flex max-h-screen flex-col items-center justify-between bg-black font-hacker text-white">
     <Header />
-    <div className="mt-60 flex h-screen flex-col items-center">
+    <div className="flex h-screen flex-col items-center justify-center">
       <Recorder />
     </div>
     <Footer />
