@@ -41,7 +41,8 @@ const Recorder = () => {
     }
   };
 
-  const saveRecording = () => {
+  const finishAndsaveRecording = () => {
+    stopRecording();
     const blob = new Blob(chunks, { type: "video/webm" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -87,7 +88,7 @@ const Recorder = () => {
             />
           </button>
           <button
-            onClick={saveRecording}
+            onClick={finishAndsaveRecording}
             className="transform rounded-l-sm rounded-r-2xl bg-gray-700 p-4 text-white transition-transform hover:scale-105"
           >
             <img
