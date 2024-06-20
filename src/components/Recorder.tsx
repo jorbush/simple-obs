@@ -5,30 +5,40 @@ import SaveIcon from "../assets/icons/save.svg";
 
 const Recorder = () => {
   const [recording, setRecording] = useState(false);
+  const [recordingTime, setRecordingTime] = useState(0);
   const mediaRecorder = useRef<MediaRecorder | null>(null);
   const [chunks, setChunks] = useState<Blob[]>([]);
+  const intervalRef = useRef<number | null>(null);
 
   const startRecording = async () => {
-    // const stream =
-    //   await navigator.mediaDevices.getDisplayMedia({
-    //     video: true,
-    //     audio: true,
-    //   });
+    const stream =
+      await navigator.mediaDevices.getDisplayMedia({
+        video: true,
+        audio: true,
+      });
 
-    // mediaRecorder.current = new MediaRecorder(stream);
-    // mediaRecorder.current.ondataavailable = (event) => {
-    //   if (event.data.size > 0) {
-    //     setChunks((prev) => [...prev, event.data]);
-    //   }
-    // };
+    mediaRecorder.current = new MediaRecorder(stream);
+    mediaRecorder.current.ondataavailable = (event) => {
+      if (event.data.size > 0) {
+        setChunks((prev) => [...prev, event.data]);
+      }
+    };
 
-    // mediaRecorder.current.start();
+    mediaRecorder.current.start();
     setRecording(true);
+    setRecordingTime(0);
+
+    intervalRef.current = window.setInterval(() => {
+      setRecordingTime((prevTime) => prevTime + 1);
+    }, 1000);
   };
 
   const stopRecording = () => {
     mediaRecorder.current?.stop();
     setRecording(false);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
   };
 
   const saveRecording = () => {
@@ -42,27 +52,22 @@ const Recorder = () => {
   };
 
   return (
-    <div className="
-        flex
-        h-screen
-        flex-col
-        items-center
-        justify-center
-        space-y-4
-    ">
+    <div className="flex flex-col items-center justify-center space-y-4">
+      {recording && (
+        <div className="flex items-center space-x-2">
+          <div className="animate-blink h-4 w-4 rounded-full bg-red-600"></div>
+          <span>
+            {new Date(recordingTime * 1000)
+              .toISOString()
+              .substr(11, 8)}
+          </span>
+        </div>
+      )}
       {!recording ? (
         <button
           onClick={startRecording}
-          className="
-            transform
-            rounded-2xl
-            bg-gray-700
-            p-4
-            px-11
-            text-white
-            transition-transform
-            hover:scale-105
-        ">
+          className="mt-10 transform rounded-2xl bg-gray-700 p-4 px-11 text-white transition-transform hover:scale-105"
+        >
           <img
             src={VideoCameraIcon}
             alt="Record"
@@ -73,16 +78,8 @@ const Recorder = () => {
         <div className="flex space-x-1">
           <button
             onClick={stopRecording}
-            className="
-                transform
-                rounded-r-sm
-                rounded-l-2xl
-                bg-gray-700
-                p-4
-                text-white
-                transition-transform
-                hover:scale-105
-            ">
+            className="transform rounded-l-2xl rounded-r-sm bg-gray-700 p-4 text-white transition-transform hover:scale-105"
+          >
             <img
               src={StopIcon}
               alt="Stop"
@@ -91,16 +88,8 @@ const Recorder = () => {
           </button>
           <button
             onClick={saveRecording}
-            className="
-            transform
-            rounded-l-sm
-            rounded-r-2xl
-            bg-gray-700
-            p-4
-            text-white
-            transition-transform
-            hover:scale-105
-          ">
+            className="transform rounded-l-sm rounded-r-2xl bg-gray-700 p-4 text-white transition-transform hover:scale-105"
+          >
             <img
               src={SaveIcon}
               alt="Save"
