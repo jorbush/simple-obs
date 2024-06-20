@@ -9,20 +9,20 @@ const Recorder = () => {
   const [chunks, setChunks] = useState<Blob[]>([]);
 
   const startRecording = async () => {
-    const stream =
-      await navigator.mediaDevices.getDisplayMedia({
-        video: true,
-        audio: true,
-      });
+    // const stream =
+    //   await navigator.mediaDevices.getDisplayMedia({
+    //     video: true,
+    //     audio: true,
+    //   });
 
-    mediaRecorder.current = new MediaRecorder(stream);
-    mediaRecorder.current.ondataavailable = (event) => {
-      if (event.data.size > 0) {
-        setChunks((prev) => [...prev, event.data]);
-      }
-    };
+    // mediaRecorder.current = new MediaRecorder(stream);
+    // mediaRecorder.current.ondataavailable = (event) => {
+    //   if (event.data.size > 0) {
+    //     setChunks((prev) => [...prev, event.data]);
+    //   }
+    // };
 
-    mediaRecorder.current.start();
+    // mediaRecorder.current.start();
     setRecording(true);
   };
 
@@ -42,12 +42,27 @@ const Recorder = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center space-y-4">
+    <div className="
+        flex
+        h-screen
+        flex-col
+        items-center
+        justify-center
+        space-y-4
+    ">
       {!recording ? (
         <button
           onClick={startRecording}
-          className="transform rounded bg-gray-700 p-4 text-white transition-transform hover:scale-105"
-        >
+          className="
+            transform
+            rounded-2xl
+            bg-gray-700
+            p-4
+            px-11
+            text-white
+            transition-transform
+            hover:scale-105
+        ">
           <img
             src={VideoCameraIcon}
             alt="Record"
@@ -55,11 +70,19 @@ const Recorder = () => {
           />
         </button>
       ) : (
-        <div className="flex space-x-4">
+        <div className="flex space-x-1">
           <button
             onClick={stopRecording}
-            className="transform rounded bg-gray-700 p-4 text-white transition-transform hover:scale-105"
-          >
+            className="
+                transform
+                rounded-r-sm
+                rounded-l-2xl
+                bg-gray-700
+                p-4
+                text-white
+                transition-transform
+                hover:scale-105
+            ">
             <img
               src={StopIcon}
               alt="Stop"
@@ -68,8 +91,16 @@ const Recorder = () => {
           </button>
           <button
             onClick={saveRecording}
-            className="transform rounded bg-gray-700 p-4 text-white transition-transform hover:scale-105"
-          >
+            className="
+            transform
+            rounded-l-sm
+            rounded-r-2xl
+            bg-gray-700
+            p-4
+            text-white
+            transition-transform
+            hover:scale-105
+          ">
             <img
               src={SaveIcon}
               alt="Save"
